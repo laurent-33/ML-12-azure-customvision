@@ -1,0 +1,8 @@
+auth.env
+docker-compose.override.yml
+csv/
+.ipynb_checkpoints/
+__pycache__
+.Rhistory
+.~lock*
+.vscode

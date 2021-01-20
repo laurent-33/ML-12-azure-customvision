@@ -1,0 +1,36 @@
+version: "3.0"
+services:
+  azure-vision:
+    build:
+      context: .
+    container_name: azure-vision
+    image: jupyter-image-custom2
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: 50m
+    ports:
+      - 8888:8888
+      - 6006:6006
+    volumes:
+      - ../:/usr/src/azure-vision
+    command: sh -c "
+      cd ../../usr/src/azure-vision
+      && jupyter notebook --ip='0.0.0.0' --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password=''"
+
+  triof-flask:
+    container_name: triof-flask
+    image: jupyter-image-custom2
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: 50m
+    ports:
+      - 5000:5000
+    volumes:
+      - ../:/usr/src/azure-vision
+    command: sh -c "
+      cd ../../usr/src/azure-vision
+      && python triof_app.py"
